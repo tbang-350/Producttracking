@@ -17,7 +17,7 @@ public class Employee {
 
     @ManyToOne(targetEntity = Contractors.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "contractor_id", referencedColumnName = "contractor_id")
-    private int contractor_id;
+    private Long contractor_id;
     private String name;
     private String gender;
     private String email;
@@ -28,7 +28,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Long emp_id, int contractor_id, String name, String gender, String email, String phonenumber, String username, String password) {
+    public Employee(Long emp_id, Long contractor_id, String name, String gender, String email, String phonenumber, String username, String password) {
         this.emp_id = emp_id;
         this.contractor_id = contractor_id;
         this.name = name;
@@ -39,7 +39,7 @@ public class Employee {
         this.password = password;
     }
 
-    public Employee(int contractor_id, String name, String gender, String email, String phonenumber, String username, String password) {
+    public Employee(Long contractor_id, String name, String gender, String email, String phonenumber, String username, String password) {
         this.contractor_id = contractor_id;
         this.name = name;
         this.gender = gender;
@@ -57,11 +57,11 @@ public class Employee {
         this.emp_id = emp_id;
     }
 
-    public int getContractor_id() {
+    public Long getContractor_id() {
         return contractor_id;
     }
 
-    public void setContractor_id(int contractor_id) {
+    public void setContractor_id(Long contractor_id) {
         this.contractor_id = contractor_id;
     }
 

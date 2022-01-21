@@ -18,6 +18,7 @@ public class ContractorService {
     }
 
     public List<Contractors> getContractors() {
+
         return contractorRepository.findAll();
     }
 
