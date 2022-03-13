@@ -1,5 +1,12 @@
 package com.example.Producttracking.entity;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.postgis.Geometry;
+import org.postgis.Point;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -14,26 +21,29 @@ public class Metadata {
     @GeneratedValue
     private Long meta_id;
 
-    @ManyToOne(targetEntity = Employee.class,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emp_id", referencedColumnName = "emp_id")
-    private int emp_id;
+    private Employee employee;
     private LocalDate date;
     private LocalTime time;
-    private BigInteger location;
+
+    @JsonSerialize(using = GeometrySerializer.class)
+    @JsonDeserialize(contentUsing = GeometryDeserializer.class)
+    private Point location;
 
     public Metadata() {
     }
 
-    public Metadata(Long meta_id, int emp_id, LocalDate date, LocalTime time, BigInteger location) {
+    public Metadata(Long meta_id, Employee employee, LocalDate date, LocalTime time, Point location) {
         this.meta_id = meta_id;
-        this.emp_id = emp_id;
+        this.employee = employee;
         this.date = date;
         this.time = time;
         this.location = location;
     }
 
-    public Metadata(int emp_id, LocalDate date, LocalTime time, BigInteger location) {
-        this.emp_id = emp_id;
+    public Metadata(Employee employee, LocalDate date, LocalTime time, Point location) {
+        this.employee = employee;
         this.date = date;
         this.time = time;
         this.location = location;
@@ -47,12 +57,12 @@ public class Metadata {
         this.meta_id = meta_id;
     }
 
-    public int getEmp_id() {
-        return emp_id;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmp_id(int emp_id) {
-        this.emp_id = emp_id;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public LocalDate getDate() {
@@ -71,11 +81,11 @@ public class Metadata {
         this.time = time;
     }
 
-    public BigInteger getLocation() {
+    public Point getLocation() {
         return location;
     }
 
-    public void setLocation(BigInteger location) {
+    public void setLocation(Point location) {
         this.location = location;
     }
 
@@ -83,7 +93,7 @@ public class Metadata {
     public String toString() {
         return "Metadata{" +
                 "meta_id=" + meta_id +
-                ", emp_id=" + emp_id +
+                ", employee=" + employee +
                 ", date=" + date +
                 ", time=" + time +
                 ", location=" + location +

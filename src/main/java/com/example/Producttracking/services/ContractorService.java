@@ -2,6 +2,7 @@ package com.example.Producttracking.services;
 
 import com.example.Producttracking.entity.Contractors;
 import com.example.Producttracking.repository.ContractorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class ContractorService {
 
     private final ContractorRepository contractorRepository;
 
+    @Autowired
     public ContractorService(ContractorRepository contractorRepository) {
         this.contractorRepository = contractorRepository;
     }

@@ -1,10 +1,4 @@
 package com.example.Producttracking.entity;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import javax.persistence.*;
 
 
@@ -15,9 +9,9 @@ public class Employee {
     @GeneratedValue
     private Long emp_id;
 
-    @ManyToOne(targetEntity = Contractors.class,cascade = CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.LAZY,optional = false)
     @JoinColumn(name = "contractor_id", referencedColumnName = "contractor_id")
-    private Long contractor_id;
+    private Contractors contractor;
     private String name;
     private String gender;
     private String email;
@@ -28,9 +22,9 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Long emp_id, Long contractor_id, String name, String gender, String email, String phonenumber, String username, String password) {
+    public Employee(Long emp_id, Contractors contractor, String name, String gender, String email, String phonenumber, String username, String password) {
         this.emp_id = emp_id;
-        this.contractor_id = contractor_id;
+        this.contractor= contractor;
         this.name = name;
         this.gender = gender;
         this.email = email;
@@ -39,8 +33,8 @@ public class Employee {
         this.password = password;
     }
 
-    public Employee(Long contractor_id, String name, String gender, String email, String phonenumber, String username, String password) {
-        this.contractor_id = contractor_id;
+    public Employee(Contractors contractor, String name, String gender, String email, String phonenumber, String username, String password) {
+        this.contractor = contractor;
         this.name = name;
         this.gender = gender;
         this.email = email;
@@ -57,12 +51,12 @@ public class Employee {
         this.emp_id = emp_id;
     }
 
-    public Long getContractor_id() {
-        return contractor_id;
+    public Contractors getContractor() {
+        return contractor;
     }
 
-    public void setContractor_id(Long contractor_id) {
-        this.contractor_id = contractor_id;
+    public void setContractor_id(Contractors contractor) {
+        this.contractor = contractor;
     }
 
     public String getName() {
@@ -117,7 +111,7 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "emp_id=" + emp_id +
-                ", contractor_id=" + contractor_id +
+                ", contractor_id=" + contractor +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", email='" + email + '\'' +

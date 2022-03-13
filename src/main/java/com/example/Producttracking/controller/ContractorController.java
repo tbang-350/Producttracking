@@ -2,6 +2,7 @@ package com.example.Producttracking.controller;
 
 import com.example.Producttracking.entity.Contractors;
 import com.example.Producttracking.services.ContractorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +14,9 @@ public class ContractorController {
 
     private final ContractorService contractorService;
 
+    @Autowired
     public ContractorController(ContractorService contractorService) {
+
         this.contractorService = contractorService;
     }
 

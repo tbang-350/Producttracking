@@ -1,10 +1,15 @@
 package com.example.Producttracking.services;
 
+import com.example.Producttracking.dto.EmployeeDto;
+import com.example.Producttracking.dto.GetEmployeeDto;
 import com.example.Producttracking.entity.Contractors;
 import com.example.Producttracking.entity.Employee;
 import com.example.Producttracking.repository.EmployeeRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -13,16 +18,28 @@ import java.util.Optional;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final ModelMapper mapper;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    @Autowired
+    public EmployeeService(EmployeeRepository employeeRepository, ModelMapper mapper) {
         this.employeeRepository = employeeRepository;
+        this.mapper = mapper;
     }
 
-    public List<Employee> getEmployee() {
-        return employeeRepository.findAll();
+
+    public List<GetEmployeeDto> getEmployee() {
+        List<GetEmployeeDto> list = new ArrayList<>();
+        List<Employee> employees = employeeRepository.findAll();
+        for(Employee emp : employees){
+            list.add(mapper.map(emp,GetEmployeeDto.class));
+        }
+        return list;
     }
 
-    public void registerEmployee(Employee employee) {
+    public void registerEmployee(EmployeeDto employeeDto) {
+
+        Employee employee = mapper.map(employeeDto,Employee.class);
+
         Optional<Employee> contractorOptional = employeeRepository.findEmployeeByUsername(employee.getUsername());
 
         if (contractorOptional.isPresent()){
