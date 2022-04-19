@@ -6,10 +6,10 @@ import javax.persistence.*;
 @Table
 public class Employee {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long emp_id;
 
-    @ManyToOne(fetch=FetchType.LAZY,optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contractor_id", referencedColumnName = "contractor_id")
     private Contractors contractor;
     private String name;

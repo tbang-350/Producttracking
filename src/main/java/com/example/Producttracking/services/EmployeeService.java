@@ -40,10 +40,10 @@ public class EmployeeService {
 
         Employee employee = mapper.map(employeeDto,Employee.class);
 
-        Optional<Employee> contractorOptional = employeeRepository.findEmployeeByUsername(employee.getUsername());
+        Optional<Employee> employeeOptional = employeeRepository.findEmployeeByUsername(employee.getUsername());
 
-        if (contractorOptional.isPresent()){
-            throw new IllegalStateException("contractor exists");
+        if (employeeOptional.isPresent()){
+            throw new IllegalStateException("employee exists");
         }
 
         employeeRepository.save(employee);

@@ -1,21 +1,22 @@
 package com.example.Producttracking.entity;
 
-import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
-import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.postgis.Geometry;
+import org.n52.jackson.datatype.jts.GeometryDeserializer;
+import org.n52.jackson.datatype.jts.GeometrySerializer;
 import org.postgis.Point;
 
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 
 @Entity
 @Table
-public class Metadata {
+public class Metadata implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue
