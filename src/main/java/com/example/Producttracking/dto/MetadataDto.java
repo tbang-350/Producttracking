@@ -12,8 +12,6 @@ import java.time.LocalTime;
 @Data
 public class MetadataDto {
     private Long emp_id;
-    private LocalDate date;
-    private LocalTime time;
 
     @JsonSerialize(using = GeometrySerializer.class)
     @JsonDeserialize(contentUsing = GeometryDeserializer.class)

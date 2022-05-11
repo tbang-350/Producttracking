@@ -4,6 +4,7 @@ import com.example.Producttracking.dto.MetadataDto;
 import com.example.Producttracking.entity.Metadata;
 import com.example.Producttracking.services.MetadataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +27,16 @@ public class MetadataController {
     }
 
     @PostMapping
-    public void registerMetadata (@RequestBody MetadataDto metadataDto){
+    public void registerMetadata (@RequestBody Metadata metadata){
 
-        metadataService.registerMetadata(metadataDto);
+        metadataService.registerMetadata(metadata);
+    }
+
+    @PostMapping("/Testpost")
+    public ResponseEntity<Void> saveTest(@RequestParam final Double lat,
+                                         @RequestParam final Double lon,
+                                         @RequestParam final Long emp_id) {
+        metadataService.createSaveTest(emp_id, lat, lon);
+        return ResponseEntity.ok().build();
     }
 }

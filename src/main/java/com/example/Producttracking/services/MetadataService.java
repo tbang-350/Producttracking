@@ -26,9 +26,9 @@ public class MetadataService {
         return metadataRepository.findAll();
     }
 
-    public void registerMetadata(MetadataDto metadataDto) {
+    public void registerMetadata(Metadata metadata1) {
 
-        Metadata metadata = modelMapper.map(metadataDto,Metadata.class);
+        Metadata metadata = modelMapper.map(metadata1,Metadata.class);
 
         Optional<Metadata> metadataOptional = metadataRepository.findById(metadata.getMeta_id());
 
@@ -37,6 +37,12 @@ public class MetadataService {
         }
 
         metadataRepository.save(metadata);
+    }
+
+    public void createSaveTest(final Long emp_id,
+                               final Double lat,
+                               final Double lon) {
+        metadataRepository.createOrUpdate(emp_id, lat, lon);
     }
 
 
